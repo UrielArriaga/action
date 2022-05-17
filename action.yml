@@ -1,25 +1,26 @@
-name: 'SSH remote run'
-description: 'Run shell scripts on remove host'
+name: 'Setup SSH Action'
+description: 'Sets up your SSH credentials inside the GitHub virtual environment'
+author: 'LuisEnMarroquin'
 branding:
-  icon: 'terminal'
-  color: 'gray-dark'
-
+  color: 'blue'
+  icon: 'cloud'
 inputs:
-  user:
-    description: 'User'
+  ORIGIN:
+    description: 'SSH origin'
+    default: 'github.com'
+    required: false
+  SSHKEY:
+    description: 'SSH key'
     required: true
-  host:
-    description: 'Remove host'
-    required: true
-  private-key-path:
-    description: 'SSH private key'
-    required: true
-  run:
-    description: 'Script to run'
-    required: true
-
+  NAME:
+    description: 'SSH host'
+    required: false
+  PORT:
+    description: 'SSH port'
+    required: false
+  USER:
+    description: 'SSH user'
+    required: false
 runs:
-  using: 'composite'
-  steps:
-    - run: ssh -i ${{ inputs.private-key-path }} ${{ inputs.user }}@${{ inputs.host }} "${{ inputs.run }}"
-      shell: bash
+  using: 'node12'
+  main: 'dist/index.js'
