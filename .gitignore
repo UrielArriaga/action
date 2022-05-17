@@ -1,2 +1,13 @@
-node_modules/
-lib/
+# Keys
+keys/
+
+# Node
+node_modules/*
+!node_modules/@actions/
+
+# Jetbrains
+.idea/
+
+# Visual Studio Code
+.vscode/
+
