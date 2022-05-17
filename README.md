@@ -1,49 +1,77 @@
-# GitHub Action SSH
+# ssh-setup-action
+Setup SSH
 
-Simple GitHub Action to run a command on a remote server using SSH. This is working with the latest [GitHub Actions](https://github.com/features/actions).
+![Release](https://badgen.net/github/release/MrSquaare/ssh-setup-action?icon=github)
+[![Codacy](https://app.codacy.com/project/badge/Grade/88adcccc19804fe6969e053d690a2b1d)](https://www.codacy.com/gh/MrSquaare/ssh-setup-action/dashboard)
 
-## ✨ Example Usage
+## Usage
 
-**Example using OpenSSH encrypted private key**
+```yaml
+name: Example
 
-```yml
-- name: ls -a via ssh
-  uses: garygrossgarten/github-action-ssh@release
-  with:
-    command: ls -a
-    host: ${{ secrets.HOST }}
-    username: garygrossgarten
-    passphrase: ${{ secrets.PASSPHRASE }}
-    privateKey: ${{ secrets.PRIVATE_KEY}}
+on: [push]
+
+jobs:
+  example:
+    name: Example
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup SSH
+      uses: MrSquaare/ssh-setup-action@v1
+      with:
+        host: github.com
+        private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 ```
 
-🔐 Set your secrets here: `https://github.com/USERNAME/REPO/settings/secrets`.
+## Examples
 
-Check out [the workflow example](.github/workflows/ssh-example-workflow.yml) for a minimalistic yaml workflow in GitHub Actions.
+### Single key and clone
 
-**Result**
+```yaml
+name: Clone repository
 
-![result of example ssh workflow](result.png)
+on: [push]
 
-## Options
+jobs:
+  clone:
+    name: Clone
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup SSH
+      uses: MrSquaare/ssh-setup-action@v1
+      with:
+        host: github.com
+        private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Clone repository
+      run: git clone git@github.com:username/repository.git
+```
 
-- **host** - _string_ - Hostname or IP address of the server. **Default:** `'localhost'`
+### Multiple keys and multiple clone
 
-- **port** - _integer_ - Port number of the server. **Default:** `22`
+```yaml
+name: Clone repositories
 
-- **username** - _string_ - Username for authentication. **Default:** (none)
+on: [push]
 
-- **password** - _string_ - Password for password-based user authentication. **Default:** (none)
-
-- **privateKey** - _mixed_ - _Buffer_ or _string_ that contains a private key for either key-based or hostbased user authentication (OpenSSH format). **Default:** (none)
-
-- **passphrase** - _string_ - For an encrypted private key, this is the passphrase used to decrypt it. **Default:** (none)
-
-- **tryKeyboard** - _boolean_ - Try keyboard-interactive user authentication if primary user authentication method fails. **Default:** `false`
-
-## Development
-
----
-
-This thing is build using Typescript and
-[ssh2](https://github.com/mscdex/ssh2) (via [node-ssh](https://github.com/steelbrain/node-ssh)). 🚀
+jobs:
+  clone:
+    name: Clone
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup GitHub SSH
+      uses: MrSquaare/ssh-setup-action@v1
+      with:
+        host: github.com
+        private-key: ${{ secrets.SSH_PRIVATE_KEY_GITHUB }}
+        private-key-name: github
+    - name: Setup GitLab SSH
+      uses: MrSquaare/ssh-setup-action@v1
+      with:
+        host: gitlab.com
+        private-key: ${{ secrets.SSH_PRIVATE_KEY_GITLAB }}
+        private-key-name: gitlab
+    - name: Clone GitHub repository
+      run: git clone git@github.com:username/repository.git
+    - name: Clone GitLab repository
+      run: git clone git@gitlab.com:username/repository.git
+```
