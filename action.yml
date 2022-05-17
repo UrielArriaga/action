@@ -1,10 +1,34 @@
-name: 'Start an SSH Agent'
-description: 'Start an SSH Agent'
+name: 'Run SSH Commands'
+description: 'This action allows you to run ssh commands.'
 branding:
-  icon: unlock
-  color: yellow
-runs:
-  using: 'node12'
-  main: 'dist/start.js'
-  post: 'dist/stop.js'
-
+  icon: 'chevron-right'
+  color: 'black'
+inputs: 
+  host: #input id
+    description: 'The vps hostname'
+    required: true
+  username: #input id
+    description: 'The vps ssh username'
+    required: true
+  password: #input id
+    description: 'THe vps ssh password'
+    required: true
+  ssh_1: #input id
+    description: 'The ssh command string'
+    required: true
+    default: 'ls -h'
+  ssh_2: #input id
+    description: 'The ssh command string'
+    required: true
+    default: 'ls -h'
+  ssh_3: #input id
+    description: 'The ssh command string'
+    required: true
+    default: 'ls -h'
+  ssh_4: #input id
+    description: 'The ssh command string'
+    required: true
+    default: 'ls -h'
+runs: 
+  using: 'node16'
+  main: index.js
