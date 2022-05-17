@@ -1,20 +1,30 @@
-name: "SSH Setup"
-author: "MrSquaare"
-description: "Setup SSH"
+name: 'SSH Auto Deploy'
+description: 'ssh auto deploy'
+author: 'hengkx'
 branding:
-  icon: terminal
-  color: gray-dark
+  icon: 'crosshair'
+  color: 'gray-dark'
 inputs:
-  host:
-    description: "SSH hosts"
+  HOST:
+    description: 'remote host'
     required: true
-  private-key:
-    description: "SSH private key"
+  USERNAME:
+    description: 'username'
     required: true
-  private-key-name:
-    description: "SSH private key name"
-    default: "id_rsa"
-    required: false
+  PASSWORD:
+    description: 'password'
+    required: true
+  PORT:
+    description: 'port'
+    default: 22
+  SOURCE:
+    description: 'local path'
+    required: true
+  TARGET:
+      description: 'remote target'
+      required: true
+  AFTER_COMMAND:
+    description: 'upload success execute command'
 runs:
-  using: "node12"
-  main: "lib/index.js"
+  using: 'node12'
+  main: 'dist/index.js'

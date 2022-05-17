@@ -1,27 +1,35 @@
 {
-  "name": "ssh-setup-action",
+  "name": "ssh-deploy",
   "version": "1.0.0",
-  "description": "Setup SSH",
+  "description": "ssh deploy action",
+  "main": "lib/ssh-deploy.js",
+  "scripts": {
+    "build": "tsc && ncc build",
+    "format": "prettier --write **/*.ts",
+    "format-check": "prettier --check **/*.ts",
+    "pre-checkin": "npm run format && npm run build"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MrSquaare/ssh-setup-action.git"
+    "url": "git+https://github.com/hengkx/ssh-deploy.git"
   },
-  "author": "MrSquaare",
+  "keywords": [
+    "actions",
+    "node",
+    "setup"
+  ],
+  "author": "hengkx",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/MrSquaare/ssh-setup-action/issues"
-  },
-  "homepage": "https://github.com/MrSquaare/ssh-setup-action#readme",
-  "main": "src/index.ts",
-  "scripts": {
-    "build": "tsc --build"
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^4.0.0",
+    "ssh2": "^0.8.9"
   },
   "devDependencies": {
-    "@types/node": "^14.14.34",
-    "typescript": "^4.2.3"
-  },
-  "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/exec": "^1.0.4"
+    "@types/node": "^14.0.18",
+    "@types/ssh2": "^0.5.44",
+    "@zeit/ncc": "^0.22.3",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.6"
   }
 }
