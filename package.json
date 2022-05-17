@@ -1,39 +1,27 @@
 {
-  "name": "@garygrossgarten/github-action-ssh",
-  "version": "0.6.4",
-  "description": "Run commands on a remote server via SSH.",
+  "name": "ssh-setup-action",
+  "version": "1.0.0",
+  "description": "Setup SSH",
   "repository": {
     "type": "git",
-    "url": "https://github.com/garygrossgarten/github-action-ssh"
+    "url": "git+https://github.com/MrSquaare/ssh-setup-action.git"
   },
-  "main": "lib/index.js",
-  "scripts": {
-    "build": "tsc",
-    "format": "prettier --write **/*.ts",
-    "format-check": "prettier --check **/*.ts",
-    "pack": "ncc build"
-  },
-  "bin": {
-    "github-action-ssh": "dist/index.js"
-  },
-  "preferGlobal": false,
-  "keywords": [
-    "typescript",
-    "github",
-    "github-actions",
-    "actions",
-    "ssh"
-  ],
-  "author": "garygrossgarten",
+  "author": "MrSquaare",
   "license": "MIT",
-  "dependencies": {
-    "@actions/core": "^1.2.6",
-    "node-ssh": "^11.1.1"
+  "bugs": {
+    "url": "https://github.com/MrSquaare/ssh-setup-action/issues"
+  },
+  "homepage": "https://github.com/MrSquaare/ssh-setup-action#readme",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc --build"
   },
   "devDependencies": {
-    "@types/node": "^12.7.12",
-    "@zeit/ncc": "^0.22.3",
-    "prettier": "^2.2.0",
-    "typescript": "4.1.2"
+    "@types/node": "^14.14.34",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/exec": "^1.0.4"
   }
 }
