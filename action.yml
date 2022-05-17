@@ -1,26 +1,10 @@
-name: 'Setup SSH Action'
-description: 'Sets up your SSH credentials inside the GitHub virtual environment'
-author: 'LuisEnMarroquin'
+name: 'Start an SSH Agent'
+description: 'Start an SSH Agent'
 branding:
-  color: 'blue'
-  icon: 'cloud'
-inputs:
-  ORIGIN:
-    description: 'SSH origin'
-    default: 'github.com'
-    required: false
-  SSHKEY:
-    description: 'SSH key'
-    required: true
-  NAME:
-    description: 'SSH host'
-    required: false
-  PORT:
-    description: 'SSH port'
-    required: false
-  USER:
-    description: 'SSH user'
-    required: false
+  icon: unlock
+  color: yellow
 runs:
   using: 'node12'
-  main: 'dist/index.js'
+  main: 'dist/start.js'
+  post: 'dist/stop.js'
+
