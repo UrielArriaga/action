@@ -1,30 +1,25 @@
-# Remote SSH Commands
-
-![](https://github.com/fifsky/ssh-action/workflows/test/badge.svg)
+# GitHub Action SSH
 
 Simple GitHub Action to run a command on a remote server using SSH. This is working with the latest [GitHub Actions](https://github.com/features/actions).
 
-⭐️ SSH password are supported from version 0.0.3
-
 ## ✨ Example Usage
 
-**Example using OpenSSH private key**
+**Example using OpenSSH encrypted private key**
 
 ```yml
 - name: ls -a via ssh
-  uses: fifsky/ssh-action@master
+  uses: garygrossgarten/github-action-ssh@release
   with:
-    command: |
-      cd /tmp
-      ls -a
+    command: ls -a
     host: ${{ secrets.HOST }}
-    user: root
-    key: ${{ secrets.PRIVATE_KEY}}
+    username: garygrossgarten
+    passphrase: ${{ secrets.PASSPHRASE }}
+    privateKey: ${{ secrets.PRIVATE_KEY}}
 ```
 
 🔐 Set your secrets here: `https://github.com/USERNAME/REPO/settings/secrets`.
 
-Check out [the workflow example](.github/workflows/test.yml) for a minimalistic yaml workflow in GitHub Actions.
+Check out [the workflow example](.github/workflows/ssh-example-workflow.yml) for a minimalistic yaml workflow in GitHub Actions.
 
 **Result**
 
@@ -36,36 +31,19 @@ Check out [the workflow example](.github/workflows/test.yml) for a minimalistic 
 
 - **port** - _integer_ - Port number of the server. **Default:** `22`
 
-- **user** - _string_ - Username for authentication. **Default:** (root)
+- **username** - _string_ - Username for authentication. **Default:** (none)
 
-- **key** - _string_ - Required, that contains a private key for either key-based or hostbased user authentication (OpenSSH format). **Default:** (none)
+- **password** - _string_ - Password for password-based user authentication. **Default:** (none)
 
-- **pass** - _string_ - Password for authentication. 
+- **privateKey** - _mixed_ - _Buffer_ or _string_ that contains a private key for either key-based or hostbased user authentication (OpenSSH format). **Default:** (none)
 
-- **args** - _string_ - SSH parameters for example: -tt.
+- **passphrase** - _string_ - For an encrypted private key, this is the passphrase used to decrypt it. **Default:** (none)
 
-> Password and Private Key can only be configured one item
+- **tryKeyboard** - _boolean_ - Try keyboard-interactive user authentication if primary user authentication method fails. **Default:** `false`
 
+## Development
 
-If you need to add some extra SSH parameters, you can setting the args option.
+---
 
-For example, add `-tt` parameter to solve: https://github.com/fifsky/ssh-action/issues/4
-
-```
-Pseudo-terminal will not be allocated because stdin is not a terminal.
-```
-
-## Tips
-
-If emitting "mesg: ttyname failed: Inappropriate ioctl for device", You need to modify your Linux files as follows
-
-```
-vim /root/.profile
-// Modify the "mesg n || true"  to "tty -s && mesg n || true"
-```
-
-
-## Thanks
-
-Documentation and parameters design from:
-https://github.com/garygrossgarten/github-action-ssh
+This thing is build using Typescript and
+[ssh2](https://github.com/mscdex/ssh2) (via [node-ssh](https://github.com/steelbrain/node-ssh)). 🚀

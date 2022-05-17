@@ -1,6 +1,6 @@
-name: 'Remote SSH Commands'
-description: 'Run remote ssh commands'
-author: 'fifsky@gmail.com'
+name: Run SSH command
+author: garygrossgarten
+description: Github Action to run commands on a remote server using SSH
 inputs:
   command:
     description: "Command to execute on the remote server."
@@ -9,31 +9,28 @@ inputs:
     description: "Hostname or IP address of the server."
     required: false
     default: "localhost"
-  user:
+  username:
     description: "Username for authentication."
     required: false
-    default: "root"
   port:
     description: "Port number of the server."
     required: false
     default: "22"
-  key:
-    description: "String that contains a private key for either key-based or hostbased user authentication (OpenSSH format)"
+  privateKey:
+    description: "File Location or string that contains a private key for either key-based or hostbased user authentication (OpenSSH format)"
     required: false
-  keyfile:
-    description: "File location to an identity file"
+  password:
+    description: "Password for password-based user authentication."
     required: false
-  pass:
-    description: "Password for authentication."
+  passphrase:
+    description: "For an encrypted private key, this is the passphrase used to decrypt it."
     required: false
-  args:
-    description: "SSH parameters for example: -tt."
+  tryKeyboard:
+    description: "Try keyboard-interactive user authentication if primary user authentication method fails."
     required: false
-
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-
+  using: "node12"
+  main: "dist/index.js"
 branding:
-  color: "green"
+  color: "purple"
   icon: "lock"
