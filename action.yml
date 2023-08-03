@@ -12,10 +12,10 @@ inputs:
     required: true
   username: #input id
     description: 'The vps ssh username'
-    required: true
+    required: false
   password: #input id
     description: 'THe vps ssh password'
-    required: true
+    required: false
   ssh_1: #input id
     description: 'The ssh command string'
     required: true
