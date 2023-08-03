@@ -4,6 +4,9 @@ branding:
   icon: 'chevron-right'
   color: 'black'
 inputs: 
+  sshPrivateKey: #input id
+    description: 'The vps shh key'
+    required: false
   host: #input id
     description: 'The vps hostname'
     required: true
