@@ -14,7 +14,7 @@ try {
             host: core.getInput('host'),
             userName: core.getInput('username'),
             password: core.getInput('password'),
-            sshPrivateKey: core.getInput('ssh-private-key')
+            sshPrivateKey: core.getInput('sshPrivateKey')
         },
         commands: [ssh_1, ssh_2, ssh_3, ssh_4]
     }
